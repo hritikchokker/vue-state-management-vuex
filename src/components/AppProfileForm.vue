@@ -21,26 +21,20 @@
         class="border-2 border-solid border-blue-200 rounded px-2 py-1"
       />
     </div>
-    <div class="w-1/2 flex md:flex-row mt-12">
-      <button
-        class="flex md:w-1/2 justify-center"
-        type="button"
-        @click="clear()"
-      >
-        Clear
-      </button>
-      <button
-        class="flex md:w-1/2 justify-center"
-        type="submit"
-        @click="submitForm()"
-      >
-        Submit
-      </button>
+    <div class="flex align-center mt-12">
+      <button type="submit" @click="submitForm()">Submit</button>
     </div>
   </section>
 </template>
 <script>
+import eventBus from "../event-bus";
 export default {
+  mounted() {
+    eventBus.$on("profileUpdate", this.handleProfileUpdate);
+  },
+  beforeDestroy() {
+    eventBus.$off("profileUpdate", this.handleProfileUpdate);
+  },
   data() {
     return {
       name: "",
@@ -49,15 +43,14 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$emit("submit", {
+      eventBus.$emit("profileUpdate", {
         name: this.name,
         occupation: this.occupation,
       });
     },
-    clear() {
-      this.name = "";
-      this.occupation = "";
-      this.$emit("submit", {});
+    handleProfileUpdate(formData) {
+      this.name = formData.name || "";
+      this.occupation = formData.occupation || "";
     },
   },
 };

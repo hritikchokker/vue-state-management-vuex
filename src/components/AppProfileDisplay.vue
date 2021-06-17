@@ -7,13 +7,22 @@
 </template>
 
 <script>
+import eventBus from "../event-bus";
 export default {
-  props: {
-    formData: {
-      type: Object,
-      default() {
-        return {};
-      },
+  mounted() {
+    eventBus.$on("profileUpdate", this.update);
+  },
+  beforeDestroy() {
+    eventBus.$off("profileUpdate", this.update);
+  },
+  data() {
+    return {
+      formData: {},
+    };
+  },
+  methods: {
+    update(formData) {
+      this.formData = formData;
     },
   },
 };
