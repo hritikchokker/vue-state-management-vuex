@@ -21,36 +21,51 @@
         class="border-2 border-solid border-blue-200 rounded px-2 py-1"
       />
     </div>
+    <div class="flex flex-col mt-2">
+      <label class="flex text-gray-800 mb-2" for="organization"
+        >Organization</label
+      >
+      <input
+        id="organization"
+        type="text"
+        name="organization"
+        v-model="organization"
+        class="border-2 border-solid border-blue-200 rounded px-2 py-1"
+      />
+    </div>
     <div class="flex align-center mt-12">
       <button type="submit" @click="submitForm()">Submit</button>
     </div>
   </section>
 </template>
 <script>
-import eventBus from "../event-bus";
 export default {
-  mounted() {
-    eventBus.$on("profileUpdate", this.handleProfileUpdate);
-  },
-  beforeDestroy() {
-    eventBus.$off("profileUpdate", this.handleProfileUpdate);
+  created() {
+    this.$store.subscribe((mutation) => {
+      if (mutation.type === "profileClear") {
+        this.resetProfileForm();
+      }
+    });
   },
   data() {
     return {
       name: "",
       occupation: "",
+      organization: "",
     };
   },
   methods: {
     submitForm() {
-      eventBus.$emit("profileUpdate", {
+      this.$store.commit("profileUpdate", {
         name: this.name,
         occupation: this.occupation,
+        organization: this.organization,
       });
     },
-    handleProfileUpdate(formData) {
-      this.name = formData.name || "";
-      this.occupation = formData.occupation || "";
+    resetProfileForm() {
+      this.name = "";
+      this.occupation = "";
+      this.organization = "";
     },
   },
 };
