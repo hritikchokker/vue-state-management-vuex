@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import axios from "axios";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -10,6 +10,8 @@ export default new Vuex.Store({
       occupation: "",
       organization: "",
     },
+    films: [],
+    ships: [],
     totalDogs: 5,
     name: "John Doe",
     dummyValue: "lorem dollar ipstat",
@@ -27,6 +29,12 @@ export default new Vuex.Store({
         occupation: payload.occupation || "",
         organization: payload.organization || "",
       };
+    },
+    setFilms(state, films) {
+      state.films = films;
+    },
+    setShips(state, ships) {
+      state.ships = ships;
     },
     profileClear(state) {
       state.formData = {
@@ -53,6 +61,26 @@ export default new Vuex.Store({
         .then((res) => res.json())
         .then((res) => {
           context.commit("setBooks", res);
+        });
+    },
+    loadFilms(context) {
+      axios
+        .get("https://swapi.dev/api/films")
+        .then((res) => {
+          context.commit("setFilms", res.data.results);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    loadShips(context) {
+      axios
+        .get("https://swapi.dev/api/starships")
+        .then((res) => {
+          context.commit("setShips", res.data.results);
+        })
+        .catch((error) => {
+          console.error(error);
         });
     },
   },

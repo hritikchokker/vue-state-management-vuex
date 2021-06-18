@@ -39,6 +39,16 @@ const routes = [
     name: "booksAsync",
     component: () => import("../views/BooksAsyncList.vue"),
   },
+  {
+    path: "/film-starships",
+    name: "FilmStarship",
+    component: () => import("../views/FilmStarships.vue"),
+  },
+  {
+    path: "/film-starship-vuex",
+    name: "FilmStarshipsState",
+    component: () => import("../views/FilmStarshipsState.vue"),
+  },
 ];
 
 const router = new VueRouter({

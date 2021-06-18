@@ -4,9 +4,9 @@ import "./registerServiceWorker";
 import router from "./router";
 import "./assets/css/tailwind.css";
 import store from "./store";
-
+import axiosPlugin from "./plugins/axios";
 Vue.config.productionTip = false;
-
+Vue.use(axiosPlugin);
 new Vue({
   router,
   store,

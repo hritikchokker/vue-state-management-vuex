@@ -6,7 +6,11 @@
       <router-link to="/profile-form">Profile Form</router-link> |
       <router-link to="/books">Books</router-link> |
       <router-link to="/dogs">Dogs</router-link> |
-      <router-link to="/books-async">Books Async</router-link>
+      <router-link to="/books-async">Books Async</router-link> |
+      <router-link to="/film-starships">Films & starships</router-link> |
+      <router-link to="/film-starship-vuex"
+        >Films & starships with vuex</router-link
+      >
     </div>
     <router-view />
   </div>
