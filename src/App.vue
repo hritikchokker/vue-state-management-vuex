@@ -3,12 +3,14 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/profile-form">Profile Form</router-link>
+      <router-link to="/profile-form">Profile Form</router-link> |
+      <router-link to="/books">Books</router-link> |
+      <router-link to="/dogs">Dogs</router-link> |
+      <router-link to="/books-async">Books Async</router-link>
     </div>
     <router-view />
   </div>
 </template>
-
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

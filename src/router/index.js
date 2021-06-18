@@ -24,6 +24,21 @@ const routes = [
     name: "ProfileForm",
     component: () => import("../views/ProfileForm.vue"),
   },
+  {
+    path: "/books",
+    name: "Books",
+    component: () => import("../views/Books.vue"),
+  },
+  {
+    path: "/dogs",
+    name: "Dog",
+    component: () => import("../views/DogsList.vue"),
+  },
+  {
+    path: "/books-async",
+    name: "booksAsync",
+    component: () => import("../views/BooksAsyncList.vue"),
+  },
 ];
 
 const router = new VueRouter({
