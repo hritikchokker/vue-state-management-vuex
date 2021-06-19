@@ -1,39 +1,63 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/profile-form">Profile Form</router-link> |
-      <router-link to="/books">Books</router-link> |
-      <router-link to="/dogs">Dogs</router-link> |
-      <router-link to="/books-async">Books Async</router-link> |
-      <router-link to="/film-starships">Films & starships</router-link> |
-      <router-link to="/film-starship-vuex"
-        >Films & starships with vuex</router-link
-      >
+    My first name is {{ $store.state.firstName }}.<br />
+    My full name is {{ $store.getters.name }}.<br />
+    I have this many pets - {{ $store.getters.totalPets }}.<br />
+    My favorite film is {{ $store.state.favoriteFilm }}.
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>Vuex Modules Example</h2>
+    <div class="vuex_modules">
+      <p>
+        My name is {{ $store.getters.name }} and I
+        <span v-if="$store.state.resume.forHire"> am looking for work! </span
+        ><span v-else> am not looking for work. </span>
+      </p>
+      <p>I've had {{ $store.getters.totalJobs }} total jobs.</p>
+      <h2>Portfolio</h2>
+      <ul>
+        <li v-for="(site, idx) in $store.state.portfolio.websites" :key="idx">
+          <a :href="site" target="_new">{{ site }}</a>
+        </li>
+      </ul>
+
+      <p>
+        <input type="url" placeholder="New site for portfolio" v-model="site" />
+        <button @click="addSite">Add Site</button>
+      </p>
     </div>
-    <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  name: "app",
+  created() {
+    this.$store.dispatch("updateFavoriteFilm", "A New Hope");
+  },
+  data() {
+    return {
+      site: "",
+    };
+  },
+  methods: {
+    addSite() {
+      this.$store.commit("addSite", this.site);
+      this.site = "";
+    },
+  },
+};
+</script>
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-content: center;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  margin-top: 50vh;
+  flex-direction: column;
+  // width: 500px;
 }
 </style>
